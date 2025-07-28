@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QyranAI</title>
+  <link rel="icon" href="favicon.png" />
+</head>
+<body style="font-family: sans-serif; background: #f8f9fa; padding: 2rem;">
+  <h1>QyranAI 🦅</h1>
+  <form id="chat-form">
+    <input type="text" id="user-input" placeholder="Сұрағыңызды жазыңыз..." required style="padding: 0.5rem; width: 60%;" />
+    <button type="submit">Жіберу</button>
+  </form>
+  <div id="chat-output" style="margin-top: 2rem;"></div>
+
+  <script>
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('user-input');
+    const output = document.getElementById('chat-output');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const message = input.value.trim();
+      if (!message) return;
+      output.innerHTML += `<p><strong>Сіз:</strong> ${message}</p>`;
+      input.value = '';
+
+      const res = await fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [{ role: 'user', content: message }]
+        })
+      });
+
+      const data = await res.json();
+      const reply = data.choices?.[0]?.message?.content || "Қате пайда болды...";
+      output.innerHTML += `<p><strong>QyranAI:</strong> ${reply}</p>`;
+    });
+  </script>
+</body>
+</html>
