@@ -29,7 +29,7 @@ def ask_nexo(user_msg: str) -> str:
     }
 
     payload = {
-        "model": "microsoft/phi-3-medium-128k-instruct:free",  # бесплатная модель
+        "model": "qwen/qwen3-coder:free",  # бесплатная модель
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": user_msg}
