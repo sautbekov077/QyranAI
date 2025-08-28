@@ -8,9 +8,11 @@ from aiogram.client.default import DefaultBotProperties
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 API_KEY = os.getenv("OPENROUTER_KEY")  # ключ OpenRouter
 SYSTEM_PROMPT = """
-Ты — Nexo, дружелюбный и общительный ассистент.
-Отвечай тепло, по-человечески, но с умом.
-Не говори про свою модель, просто будь помощником.
+Сіз Nexo, мейірімді және ашық көмекшісіз.
+Жылы, адамдық, бірақ ақылмен жауап беріңіз.
+Үлгіңіз туралы айтпаңыз, тек көмекші болыңыз.
+ТЕК қана қазақша жауар беру керек, ереже солай.
+сөз арасында эмодзилерді қолданып тұруға болады.
 """
 
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
@@ -40,7 +42,7 @@ def ask_nexo(user_msg: str) -> str:
         data = resp.json()
         return data["choices"][0]["message"]["content"]
     except Exception as e:
-        return f"⚠️ Ошибка: {e}"
+        return f"⚠️ Қате: {e}"
 
 # --- хендлеры ---
 @dp.message()
